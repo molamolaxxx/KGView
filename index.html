@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/kg.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <style>
+        body {
+            background: linear-gradient(90deg, #ffffff, #d2e0f8)
+        }
+
+        .container {
+            width: 100%;
+            height: 35rem;
+
+            float: right;
+            display: flex;
+        }
+
+        .btn_container {
+            width: 100%;
+            height: 10rem;
+            text-align: center;
+        }
+
+        .btn_container:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        #toast-container {
+            top: 80%;
+            right: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav style="background:#007497e0">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="
+            margin-left: 1rem;
+            font-size: 1.2rem;
+        ">知识图谱可视化</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://www.molapages.xyz/molablog/page/72">文档</a></li>
+                <li><a href="https://github.com/molamolaxxx/KGView">Github</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-- <div id="container" class="container"></div> -->
+
+    <div class="row" style="
+    margin-top: 10px;
+    display: flex;
+">
+        <ul class="collapsible" data-collapsible="accordion" style="
+        margin-left: 4rem;width: 26rem
+    ">
+            <li class="active">
+                <div class="collapsible-header">节点数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t1" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t2" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">节点配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t3" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t4" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">回显内容</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t5" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入回显内容</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="btn_container">
+                <a class="waves-effect waves-light btn-large" href="javascript:render();">渲染</a>
+            </li>
+        </ul>
+        <div class="col s12 m7" style="
+            float: right;
+            margin-right: 4rem;
+        ">
+            <div class="card">
+
+                <div id="container" class="card-image container">
+                    <span class="card-title" style="color: #868181;">Knowlegde Graph</span>
+                </div>
+
+
+                <div class="card-content" style="
+                background: aliceblue;
+            ">
+                    <p>知识图谱可视化，基于d3.js构建，支持数据导入与配色选择</p>
+                </div>
+                <div class="card-action">
+                    <a style="
+                    color: #077abd;
+                " href="http://www.molapages.xyz">mola的博客</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/kg.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script>
+        var t1_text = '{' +
+            '"1": {"name": "数据结构","type": "学科"},\n' +
+            '"2": { "name": "二叉树", "type": "知识点"},\n' +
+            '"3": {"name": "链表","type": "知识点"},\n' +
+            '"4": {"name": "平衡二叉树","type": "知识点"},\n' +
+            '"5": {"name": "二叉树的结构讲解","url": "www.mooc.com/15.html",\n' +
+            '"type": "视频资源"},\n' +
+            '"6": {"name": "链表的反转",\n' +
+            '"url": "www.mooc.com/1.ppt",\n' +
+            '"type": "ppt资源"\n' +
+            '},\n' +
+            '"7": {"name": "闲节点","type": "闲"},\n' +
+            '"8": {"name": "闲节点2","type": "闲"},\n' +
+            '"9": {"name": "闲节点3","type": "闲"},\n' +
+            '"10": {"name": "芳芳老师","type": "老师"},\n' +
+            '"11": {"name": "月老师","type": "老师"}\n' +
+            "}"
+        document.getElementById("t1").value = t1_text;
+        var t2_text = "[\n" +
+            '{ "source": 1, "target": 2, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 3, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 4, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 2, "target": 5, "rela": "视频课程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 6, "rela": "ppt教程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 7, "rela": "没关系" },\n' +
+            '{ "source": 8, "target": 9, "rela": "没关系" },\n' +
+            '{ "source": 10, "target": 5, "rela": "授课", "type": "行为" },\n' +
+            '{ "source": 11, "target": 6, "rela": "授课", "type": "行为" }\n' +
+            "]"
+        document.getElementById("t2").value = t2_text;
+
+        contentHook = function(item){
+            return "<div>"+item.name+"</div>"
+        }
+        function render() {
+            try {
+                $("svg").remove()
+                var data = {}
+                data.nodes = JSON.parse(document.getElementById("t1").value);
+                data.links = JSON.parse(document.getElementById("t2").value);
+                var config = {
+                    //鼠标mouseover后的弹窗
+                    content: document.getElementById("t5").value,
+                    contentHook: null,
+                    //节点配色方案（可为空)
+                    nodeColor: document.getElementById("t3").value,
+                    //连接线配色方案（可为空）
+                    linkColor: document.getElementById("t4").value,
+                    width: document.getElementById("container").clientWidth,
+                    height: document.getElementById("container").clientHeight
+                }
+                initKG(data, config, "#container")
+            } catch (err) {
+                Materialize.toast('渲染存在异常', 2000)
+            }
+        }
+        render();
+
+    </script>
+
+</body>
