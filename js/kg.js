@@ -337,9 +337,9 @@ initKG = function (data, config, container) {
 
         edges_text.attr('transform', function (d, i) {//连线上的文字
             if (d.target.x < d.source.x) {//判断起点和终点的位置，来让文字一直显示在线的上方且一直是正对用户
-                bbox = this.getBBox();//获取矩形空间,并且调整翻转中心。（因为svg与css中的翻转不同，具体区别可看http://www.zhangxinxu.com/wordpress/2015/10/understand-svg-transform/）
-                rx = bbox.x + bbox.width / 2;
-                ry = bbox.y + bbox.height / 2;
+                let bbox = this.getBBox();//获取矩形空间,并且调整翻转中心。（因为svg与css中的翻转不同，具体区别可看http://www.zhangxinxu.com/wordpress/2015/10/understand-svg-transform/）
+                let rx = bbox.x + bbox.width / 2;
+                let ry = bbox.y + bbox.height / 2;
                 return 'rotate(180 ' + rx + ' ' + ry + ')';
             }
             else {

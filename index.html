@@ -220,15 +220,16 @@
                     content: document.getElementById("t5").value,
                     contentHook: null,
                     //节点配色方案（可为空)
-                    nodeColor: document.getElementById("t3").value,
+                    nodeColor: document.getElementById("t3").value ? JSON.parse(document.getElementById("t3").value) : null,
                     //连接线配色方案（可为空）
-                    linkColor: document.getElementById("t4").value,
+                    linkColor: document.getElementById("t4").value ? JSON.parse(document.getElementById("t4").value) : null,
                     width: document.getElementById("container").clientWidth,
                     height: document.getElementById("container").clientHeight
                 }
                 initKG(data, config, "#container")
             } catch (err) {
                 Materialize.toast('渲染存在异常', 2000)
+                console.info(err)
             }
         }
         render();
